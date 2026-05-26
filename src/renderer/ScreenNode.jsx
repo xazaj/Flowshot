@@ -26,6 +26,17 @@ export default function ScreenNode({ data }) {
         <div className="screen-node__title">{data.title}</div>
         <div className="screen-node__stage">{data.stage}</div>
       </div>
+      {(data.desc || data.route) && (
+        <div className="screen-node__tooltip" role="tooltip">
+          {data.desc && <div className="screen-node__tooltip-desc">{data.desc}</div>}
+          {data.route && (
+            <div className="screen-node__tooltip-route">
+              <span className="screen-node__tooltip-route-label">Route</span>
+              <code>{data.route}</code>
+            </div>
+          )}
+        </div>
+      )}
       <Handle type="source" position={Position.Right} />
     </div>
   )

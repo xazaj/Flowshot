@@ -22,6 +22,8 @@ function buildNodes(manifest, onOpen) {
       title: n.title,
       stage: n.stage,
       thumb: n.thumb,
+      desc: n.desc,
+      route: n.route,
       onOpen: () => onOpen(n),
     },
   }))
