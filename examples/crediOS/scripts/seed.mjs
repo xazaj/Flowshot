@@ -1,6 +1,19 @@
 const NOW_ISO = "2026-05-26T10:00:00.000Z"
 
-function emptyCustomerInfo() {
+const STAGE_TO_STATUS = {
+  IDENTITY_SCOPE: "DRAFT",
+  NTC_DE1_ENTRY: "DATA_ENTRY_IN_PROGRESS",
+  NTC_DE1_DUAL_ENTRY: "DUAL_ENTRY_IN_PROGRESS",
+  NTC_AIP_PENDING_REVIEW: "AIP_PENDING",
+  NTC_AIP_REJECTED_FINAL: "AIP_REJECTED",
+  NTC_DE2_ENTRY: "DATA_ENTRY_IN_PROGRESS",
+  NTC_DE2_DUAL_ENTRY: "DUAL_ENTRY_IN_PROGRESS",
+  ETC_DE1_ENTRY: "DATA_ENTRY_IN_PROGRESS",
+  ETC_DE1_DUAL_ENTRY: "DUAL_ENTRY_IN_PROGRESS",
+  FINAL_SUBMITTED: "SUBMITTED",
+}
+
+function seedCustomerInfo() {
   return {
     personalInformation: {
       salutation: "Mr",
@@ -171,7 +184,7 @@ function emptyCardDetails() {
   }
 }
 
-function makeApplication({ id, customerType, applicationType, referenceNumber }) {
+function makeApplication({ id, customerType, applicationType, referenceNumber, stage }) {
   return {
     id,
     referenceNumber: referenceNumber ?? "",
@@ -184,8 +197,8 @@ function makeApplication({ id, customerType, applicationType, referenceNumber })
       picl: false,
       ticl: false,
     },
-    status: "DRAFT",
-    customerInfo: emptyCustomerInfo(),
+    status: STAGE_TO_STATUS[stage] ?? "DRAFT",
+    customerInfo: seedCustomerInfo(),
     applicationDetails: emptyCardDetails().applicationDetails,
     cardDetails: emptyCardDetails(),
     emergencyContact: {
@@ -226,7 +239,7 @@ function makeApplication({ id, customerType, applicationType, referenceNumber })
     },
     fixedDeposit: { receiptNo: "", amount: null, branch: "", remarks: "" },
     staffInformation: {
-      hlgStaff: false,
+      hlgStaff: null,
       staffCategory: "",
       grade: "",
       staffId: "",
@@ -262,6 +275,7 @@ export function makeDraft({ id, stage, customerType = "NTC", applicationType, re
       customerType,
       applicationType: appType,
       referenceNumber,
+      stage,
     }),
     identifySnapshot: {
       status: "found",

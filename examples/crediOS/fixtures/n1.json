@@ -15,7 +15,7 @@
       "picl": false,
       "ticl": false
     },
-    "status": "DRAFT",
+    "status": "DATA_ENTRY_IN_PROGRESS",
     "customerInfo": {
       "personalInformation": {
         "salutation": "Mr",
@@ -237,7 +237,7 @@
       "remarks": ""
     },
     "staffInformation": {
-      "hlgStaff": false,
+      "hlgStaff": null,
       "staffCategory": "",
       "grade": "",
       "staffId": "",

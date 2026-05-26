@@ -237,7 +237,7 @@
       "remarks": ""
     },
     "staffInformation": {
-      "hlgStaff": false,
+      "hlgStaff": null,
       "staffCategory": "",
       "grade": "",
       "staffId": "",
