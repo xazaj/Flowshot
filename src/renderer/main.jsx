@@ -1,66 +1,43 @@
-import React from "react"
 import { createRoot } from "react-dom/client"
-import {
-  ReactFlow,
-  Background,
-  Controls,
-  MiniMap,
-  Handle,
-  Position,
-} from "@xyflow/react"
-import "@xyflow/react/dist/style.css"
+import App from "./App.jsx"
+import "./fonts.css"
+import "./tokens.css"
+import "./app.css"
 
-// 1x1 red dot PNG, base64 — simulates an inlined screenshot
-const RED_DOT =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg=="
-
-const ScreenNode = ({ data }) => (
-  <div
-    style={{
-      width: 200,
-      background: "#fff",
-      border: "1px solid #111",
-      borderRadius: 12,
-      overflow: "hidden",
-      fontFamily: "ui-sans-serif, system-ui",
-    }}
-  >
-    <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
-    <img src={data.thumb} alt="" style={{ width: "100%", display: "block", height: 90, background: "#eee" }} />
-    <div style={{ padding: "8px 10px", fontSize: 14, fontWeight: 500 }}>{data.title}</div>
-    <Handle type="source" position={Position.Right} style={{ opacity: 0 }} />
-  </div>
-)
-
-const nodeTypes = { screen: ScreenNode }
-
-const initialNodes = [
-  { id: "W1", type: "screen", position: { x: 0, y: 0 }, data: { title: "Workbench", thumb: RED_DOT } },
-  { id: "A1", type: "screen", position: { x: 300, y: 0 }, data: { title: "Identity Scope", thumb: RED_DOT } },
-  { id: "N1", type: "screen", position: { x: 600, y: -80 }, data: { title: "NTC DE1 Entry", thumb: RED_DOT } },
-  { id: "E1", type: "screen", position: { x: 600, y: 80 }, data: { title: "ETC DE1 Entry", thumb: RED_DOT } },
-]
-
-const initialEdges = [
-  { id: "e1", source: "W1", target: "A1", label: "New", type: "smoothstep" },
-  { id: "e2", source: "A1", target: "N1", label: "NTC", type: "smoothstep" },
-  { id: "e3", source: "A1", target: "E1", label: "ETC", type: "smoothstep" },
-]
-
-function App() {
-  return (
-    <ReactFlow
-      nodes={initialNodes}
-      edges={initialEdges}
-      nodeTypes={nodeTypes}
-      fitView
-      nodesDraggable={false}
-    >
-      <Background gap={16} />
-      <Controls />
-      <MiniMap />
-    </ReactFlow>
-  )
+const FALLBACK_MANIFEST = {
+  uiFlowVersion: "v0.0.0-dev",
+  project: { name: "Dev Preview", scope: "no manifest loaded" },
+  crediOS: { commit: "0000000", commitTime: new Date().toISOString(), repo: "" },
+  capturedAt: new Date().toISOString(),
+  viewport: { width: 1280, height: 800 },
+  nodes: [
+    { id: "W1", title: "Workbench", lane: "shared", x: 0, y: 300, stage: "WORKBENCH", desc: "demo",
+      thumb: "https://placehold.co/240x135/eeeeee/333333?text=W1", full: "https://placehold.co/1280x800/eeeeee/333333?text=W1" },
+    { id: "A1", title: "Identity Scope", lane: "shared", x: 320, y: 300, stage: "IDENTITY_SCOPE", desc: "demo",
+      thumb: "https://placehold.co/240x135/eeeeee/333333?text=A1", full: "https://placehold.co/1280x800/eeeeee/333333?text=A1" },
+    { id: "N1", title: "NTC DE1", lane: "ntc", x: 640, y: 100, stage: "NTC_DE1_ENTRY", desc: "demo",
+      thumb: "https://placehold.co/240x135/f5ecd9/333333?text=N1", full: "https://placehold.co/1280x800/f5ecd9/333333?text=N1" },
+    { id: "E1", title: "ETC DE1", lane: "etc", x: 640, y: 540, stage: "ETC_DE1_ENTRY", desc: "demo",
+      thumb: "https://placehold.co/240x135/d9d4ff/333333?text=E1", full: "https://placehold.co/1280x800/d9d4ff/333333?text=E1" },
+  ],
+  edges: [
+    { from: "W1", to: "A1", label: "New" },
+    { from: "A1", to: "N1", label: "NTC" },
+    { from: "A1", to: "E1", label: "ETC" },
+  ],
 }
 
-createRoot(document.getElementById("root")).render(<App />)
+function readManifest() {
+  const tag = document.getElementById("uiflow-manifest")
+  if (tag && tag.textContent && tag.textContent.trim().length > 0) {
+    try {
+      return JSON.parse(tag.textContent)
+    } catch (err) {
+      console.error("[flowshot] failed to parse manifest:", err)
+    }
+  }
+  return FALLBACK_MANIFEST
+}
+
+const manifest = readManifest()
+createRoot(document.getElementById("root")).render(<App manifest={manifest} />)
