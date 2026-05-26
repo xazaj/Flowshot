@@ -5,3 +5,6 @@ dist/
 
 # Playwright verify artifact
 dist/_verify.png
+
+# Capture cache (per-example)
+examples/*/cache/

@@ -1,11 +1,17 @@
 {
-  "name": "uiflow-spike-s5",
+  "name": "flowshot",
+  "version": "0.0.1",
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build"
+    "dev": "vite",
+    "build": "vite build",
+    "capture:crediOS": "node examples/crediOS/scripts/capture.mjs",
+    "build:crediOS": "node examples/crediOS/scripts/build.mjs"
   },
   "dependencies": {
+    "@fontsource-variable/inter": "^5.1.0",
+    "@fontsource/geist-mono": "^5.1.0",
     "@xyflow/react": "^12.3.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
@@ -13,6 +19,7 @@
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.4",
     "playwright": "^1.60.0",
+    "sharp": "^0.33.5",
     "vite": "^5.4.10",
     "vite-plugin-singlefile": "^2.0.3"
   }
