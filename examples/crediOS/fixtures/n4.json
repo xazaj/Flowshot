@@ -1,0 +1,285 @@
+{
+  "id": "flow-n4-aip-rejected",
+  "ownerEmail": "flowshot@webnak.com",
+  "stage": "NTC_AIP_REJECTED_FINAL",
+  "version": 1,
+  "application": {
+    "id": "flow-n4-aip-rejected",
+    "referenceNumber": "CC/CC/2026/L0000444",
+    "cif": "",
+    "customerType": "NTC",
+    "applicationType": "NEW_PRINCIPAL",
+    "applyFor": {
+      "addPrincipalCard": true,
+      "addSupplementaryCard": false,
+      "picl": false,
+      "ticl": false
+    },
+    "status": "DRAFT",
+    "customerInfo": {
+      "personalInformation": {
+        "salutation": "Mr",
+        "nameAsPerNric": "AHMAD BIN ABDULLAH",
+        "nameOnCard": "AHMAD ABDULLAH",
+        "mih": false,
+        "sh": false,
+        "idType1": "MyKad",
+        "idNo1": "880101145678",
+        "idType2": "MyKad (Old ID)",
+        "idNo2": "",
+        "dateOfBirth": "1988-01-01",
+        "allowExceptionExceededDob": false,
+        "nationality": "Malaysia",
+        "race": "Malay",
+        "gender": "M"
+      },
+      "residencyTaxation": {
+        "permanentResidentOtherCountries": false,
+        "countryOfPermanentResident": "",
+        "resideMoreThan182Days": true,
+        "fenResidentStatus": "Resident",
+        "bnmAssignedId": "",
+        "idIssuedCountry": "Malaysia",
+        "idIssuedDate": "2010-01-01",
+        "idExpireDate": "2030-01-01"
+      },
+      "contactInformation": {
+        "handphoneCountryCode": "+60",
+        "handphoneAreaCode": "12",
+        "handphoneNumber": "3456789",
+        "emailAddress": "ahmad@example.com",
+        "emailValidationResult": "Validated",
+        "emailValidationExpiryDate": "2026-12-31",
+        "statementType": "E-Statement",
+        "correspondenceAddress": "Home",
+        "cardDeliveryPreference": "Branch"
+      },
+      "addressInformation": {
+        "residenceType": "Owned",
+        "lengthOfStayYears": 5,
+        "lengthOfStayMonths": 3,
+        "homeAddressLine1": "No. 12, Jalan Bunga Raya",
+        "homeAddressLine2": "Taman Sri Hartamas",
+        "homeAddressLine3": "",
+        "homeAddressLine4": "",
+        "postcode": "50480",
+        "city": "Kuala Lumpur",
+        "state": "WP Kuala Lumpur",
+        "country": "Malaysia",
+        "postcodeCategory": "Urban"
+      },
+      "employmentDetails": {
+        "occupationName": "Software Engineer",
+        "occupationCategory": "Professional",
+        "occupationGroup": "Technology",
+        "occupationCode": "2512",
+        "companyName": "Tech Solutions Sdn Bhd",
+        "employmentType": "Permanent",
+        "employmentSector": "Private",
+        "industrySector": "Information Technology",
+        "selfEmployed": false,
+        "directors": [],
+        "companyAddressLine1": "Level 10, Menara TM",
+        "companyAddressLine2": "Jalan Pantai Baharu",
+        "companyAddressLine3": "",
+        "companyAddressLine4": "",
+        "companyPostcode": "50672",
+        "companyCity": "Kuala Lumpur",
+        "companyState": "WP Kuala Lumpur",
+        "companyCountry": "Malaysia",
+        "lengthOfServiceYears": 4,
+        "lengthOfServiceMonths": 2,
+        "prevEmployer": "",
+        "prevLengthOfServiceYears": null,
+        "prevLengthOfServiceMonths": null,
+        "prevOccupationName": "",
+        "prevOccupationCategory": "",
+        "prevOfficeLineAreaCode": "",
+        "prevOfficeLineNumber": "",
+        "prevOfficeLineExt": "",
+        "prevOfficeDirectLineAreaCode": "",
+        "prevOfficeDirectLineNumber": "",
+        "prevEmploymentType": "",
+        "prevEmploymentSector": "",
+        "prevIndustrySector": ""
+      },
+      "marketingConsent": {
+        "shareInfoWithBusinessPartner": true,
+        "marketingOptOut": false
+      },
+      "otherPersonalDetails": {
+        "gender": "M",
+        "educationLevel": "Bachelor",
+        "maritalStatus": "Single",
+        "numberOfDependants": 0,
+        "selfEmployed": false,
+        "lengthOfServiceYears": 4,
+        "lengthOfServiceMonths": 2,
+        "email": "ahmad@example.com",
+        "emailValidationResult": "Validated",
+        "emailValidationExpiryDate": "2026-12-31",
+        "statementType": "E-Statement"
+      },
+      "contactNumbers": {
+        "homePhoneAreaCode": "03",
+        "homePhoneNumber": "62012345",
+        "officeGeneralLineAreaCode": "03",
+        "officeGeneralLineNumber": "27200000",
+        "officeGeneralLineExt": "1234",
+        "officeDirectLineAreaCode": "03",
+        "officeDirectLineNumber": "27200099"
+      },
+      "financialInformation": {
+        "processWithVerifiedIncome": true,
+        "verifiedMonthlyGrossIncome": 8500,
+        "verifiedMonthlyNetIncome": 6800,
+        "verifiedIncomeExpiry": "2026-12-04",
+        "annualGrossIncome": 102000,
+        "annualOtherIncome": 0,
+        "monthlyNetIncome": 6800,
+        "monthlyDeclaredCommitment": 1500,
+        "annualSpouseIncome": null,
+        "householdIncome": 102000
+      },
+      "residentialAddress": {
+        "homeAddressLine1": "No. 12, Jalan Bunga Raya",
+        "homeAddressLine2": "Taman Sri Hartamas",
+        "homeAddressLine3": "",
+        "homeAddressLine4": "",
+        "postcode": "50480",
+        "city": "Kuala Lumpur",
+        "state": "WP Kuala Lumpur",
+        "country": "Malaysia",
+        "postcodeCategory": "Urban"
+      },
+      "cddQuestions": {
+        "isPep": false,
+        "isRcaToPep": false,
+        "isFaceToFace": true
+      },
+      "verification": {
+        "kycProcess": [
+          "IC_VERIFIED"
+        ]
+      },
+      "addresses": [],
+      "contacts": []
+    },
+    "applicationDetails": {
+      "officerSalesCode": "SO001",
+      "deliveryChannel": "BRANCH",
+      "teamCode": "TM01",
+      "branchCode": "BR01",
+      "sourceCode": "WALK_IN",
+      "referralId": "",
+      "preScreenerId": "",
+      "programType": "STANDARD",
+      "formLanguage": "English"
+    },
+    "cardDetails": {
+      "applicationDetails": {
+        "officerSalesCode": "SO001",
+        "deliveryChannel": "BRANCH",
+        "teamCode": "TM01",
+        "branchCode": "BR01",
+        "sourceCode": "WALK_IN",
+        "referralId": "",
+        "preScreenerId": "",
+        "programType": "STANDARD",
+        "formLanguage": "English"
+      },
+      "cardApplication": {
+        "campaignCode": "CMP2026",
+        "cardType": "Platinum",
+        "programCode": "PLT01"
+      }
+    },
+    "emergencyContact": {
+      "nameAsPerNric": "SITI BINTI YUSOF",
+      "name": "Siti Yusof",
+      "relationship": "Spouse",
+      "homePhoneAreaCode": "03",
+      "homePhoneNumber": "62012345",
+      "handphoneAreaCode": "12",
+      "handphoneNumber": "9876543",
+      "phoneCountryCode": "+60",
+      "phoneAreaCode": "12",
+      "phoneNumber": "9876543",
+      "officeLineAreaCode": "",
+      "officeLineNumber": "",
+      "officeLineExt": "",
+      "officeGeneralLineAreaCode": "",
+      "officeGeneralLineNumber": "",
+      "officeGeneralLineExt": "",
+      "officeDirectLineAreaCode": "",
+      "officeDirectLineNumber": ""
+    },
+    "spouseDetails": {
+      "nameAsPerNric": "",
+      "idType1": "MyKad",
+      "idNo1": "",
+      "idType2": "MyKad (Old ID)",
+      "idNo2": "",
+      "companyName": "",
+      "officeGeneralLineAreaCode": "",
+      "officeGeneralLineNumber": "",
+      "officeGeneralLineExt": "",
+      "officeDirectLineAreaCode": "",
+      "officeDirectLineNumber": "",
+      "occupationName": "",
+      "occupationCategory": "",
+      "annualIncome": null
+    },
+    "fixedDeposit": {
+      "receiptNo": "",
+      "amount": null,
+      "branch": "",
+      "remarks": ""
+    },
+    "staffInformation": {
+      "hlgStaff": false,
+      "staffCategory": "",
+      "grade": "",
+      "staffId": "",
+      "staffCompany": ""
+    },
+    "piclDetails": {
+      "rows": []
+    },
+    "ticlDetails": {
+      "startDate": "",
+      "endDate": "",
+      "reasonForLimitIncrease": "",
+      "rows": []
+    },
+    "memo": {
+      "salesRemarks": "",
+      "entries": []
+    },
+    "reasonCode": {
+      "reasonCode": "",
+      "exceptionCode": ""
+    },
+    "documents": [],
+    "supplementaryCardholders": [],
+    "principalCards": [],
+    "createdAt": "2026-05-26T10:00:00.000Z",
+    "updatedAt": "2026-05-26T10:00:00.000Z",
+    "createdBy": "Demo User"
+  },
+  "identifySnapshot": {
+    "status": "found",
+    "ranAt": "2026-05-26T10:00:00.000Z",
+    "idType1": "MyKad",
+    "idNo1": "880101145678",
+    "idType2": "MyKad (Old ID)",
+    "idNo2": "",
+    "inferredCustomerType": "NTC"
+  },
+  "customerTypeSource": "IDENTIFY",
+  "lockedPaths": [],
+  "createdAt": "2026-05-26T10:00:00.000Z",
+  "updatedAt": "2026-05-26T10:00:00.000Z",
+  "createdBy": "Demo User",
+  "updatedBy": "Demo User"
+}
