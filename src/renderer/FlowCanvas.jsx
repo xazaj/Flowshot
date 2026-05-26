@@ -18,7 +18,6 @@ function buildNodes(manifest, onOpen) {
     type: "screen",
     position: { x: n.x, y: n.y },
     draggable: false,
-    selectable: false,
     data: {
       title: n.title,
       stage: n.stage,
@@ -51,6 +50,10 @@ export default function FlowCanvas({ manifest, onOpenNode, onReady }) {
     if (onReady) onReady()
   }, [onReady])
 
+  const onNodeClick = useCallback((_event, node) => {
+    if (node?.data?.onOpen) node.data.onOpen()
+  }, [])
+
   return (
     <ReactFlowProvider>
       <ReactFlow
@@ -59,9 +62,9 @@ export default function FlowCanvas({ manifest, onOpenNode, onReady }) {
         nodeTypes={nodeTypes}
         nodesDraggable={false}
         nodesConnectable={false}
-        elementsSelectable={false}
         proOptions={{ hideAttribution: true }}
         onInit={onInit}
+        onNodeClick={onNodeClick}
         minZoom={0.2}
         maxZoom={2}
       >

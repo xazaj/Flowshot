@@ -106,10 +106,15 @@ function ensureDirs() {
   }
 }
 
-function assertCleanWorktree() {
+function assertCleanWorktree(allowDirty = false) {
   const out = execSync(`git -C ${CREDIOS_REPO} status --porcelain`, { encoding: "utf8" })
+  let dirty = false
   if (out.trim().length > 0) {
-    throw new Error(`CrediOS worktree is dirty:\n${out}\nCommit or stash before capture.`)
+    if (!allowDirty) {
+      throw new Error(`CrediOS worktree is dirty:\n${out}\nCommit/stash, or rerun with --allow-dirty.`)
+    }
+    dirty = true
+    console.warn(`[capture] WARNING: CrediOS worktree is dirty — proceeding (--allow-dirty)`)
   }
   const commit = execSync(`git -C ${CREDIOS_REPO} rev-parse --short HEAD`, { encoding: "utf8" }).trim()
   const commitTime = execSync(`git -C ${CREDIOS_REPO} log -1 --format=%cI`, { encoding: "utf8" }).trim()
@@ -124,7 +129,7 @@ function assertCleanWorktree() {
   } catch {
     // keep fallback
   }
-  return { commit, commitTime, repoUrl }
+  return { commit: dirty ? `${commit}-dirty` : commit, commitTime, repoUrl, dirty }
 }
 
 async function assertServerUp() {
@@ -242,6 +247,7 @@ async function captureNode(browser, storagePath, node) {
   const draft = loadFixture(node.fixture)
   await context.addInitScript(
     (args) => {
+      if (location.protocol !== "http:" && location.protocol !== "https:") return
       try {
         if (args.draft) {
           localStorage.setItem(args.prefix + args.draft.id, JSON.stringify(args.draft))
@@ -338,9 +344,11 @@ async function captureWithRetry(browser, storagePath, node) {
 }
 
 async function main() {
+  const args = process.argv.slice(2)
+  const allowDirty = args.includes("--allow-dirty")
   ensureDirs()
   console.log("[capture] checking CrediOS worktree...")
-  const { commit, commitTime, repoUrl } = assertCleanWorktree()
+  const { commit, commitTime, repoUrl } = assertCleanWorktree(allowDirty)
   console.log(`[capture] CrediOS HEAD ${commit} @ ${commitTime}`)
 
   console.log("[capture] checking dev server...")
