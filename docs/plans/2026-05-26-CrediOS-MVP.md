@@ -8,6 +8,7 @@
 > - 案例 spec `docs/cases/CrediOS-Sales-Workspace.md`
 > - 设计系统 `docs/figma-design.md`
 > - Spike 报告 `docs/01.Spike S5 报告.md`
+> - **CrediOS 路由与交互权威来源**：`/Users/zhuaijun/Work-space/CrediOS/docs/业务需求/CrediOS-Sitemap-QA-Guide.md`（路由、Tab、auth、stage flow、ApplicationDraft 源码位置）。capture 脚本编写时以此为准，与本文档 / 案例 spec 不一致时以 sitemap 为准
 
 ---
 
@@ -31,16 +32,22 @@
 
 ## 1. 范围（14 节点 + 14 张截图）
 
-| 类别 | 节点 ID | 是否需要 seed | 说明 |
-|------|---------|--------------|------|
-| Workbench | W1, W2 | ❌ | 默认状态，无草稿 |
-| 共享 | A1, A8, A9, A10 | ✅ 4 份 | Identity / Final / Review / Edit |
-| NTC 主线 | N1, N2, N3, N4, N5, N6 | ✅ 6 份 | DE1 → AIP → DE2 全链路 |
-| ETC 主线 | E1, E2 | ✅ 2 份 | DE1 + Dual Entry |
+> ⚠️ 路由已对照 CrediOS sitemap §2 修正 —— 案例 spec 部分路由缺失 `/sales-workspace` 前缀，本表为准。
 
-共 **12 份 seed fixture**（A9/A10 可复用 NTC/ETC 的现有草稿数据）。
+| 节点 ID | 节点名 | 路由 | seed 需求 |
+|---------|-------|------|----------|
+| W1 | Data Entry Workbench | `/sales-workspace` | ❌ 默认状态 |
+| W2 | Application Inquiry | `/sales-workspace?app=search` | ❌（W2 是 tab，不是独立路由） |
+| A1 | Identity Scope | `/sales-workspace/applications/[id]` (stage=IDENTITY) | ✅ |
+| A8 | Final Submitted | `/sales-workspace/applications/[id]` (stage=FINAL_SUBMITTED) | ✅ |
+| A9 | Review | `/sales-workspace/applications/[id]/review` | ✅（复用草稿） |
+| A10 | Edit | `/sales-workspace/applications/[id]/edit` | ✅（复用草稿） |
+| N1–N6 | NTC DE1/Dual/AIP/Rejected/DE2/DE2-Dual | `/sales-workspace/applications/[id]` (stage=*) | ✅ 6 份 |
+| E1–E2 | ETC DE1/Dual | `/sales-workspace/applications/[id]` (stage=ETC_*) | ✅ 2 份 |
 
-节点拓扑见 `docs/cases/CrediOS-Sales-Workspace.md` §2.6。
+共 **12 份 seed fixture**（A9/A10 复用 NTC/ETC 草稿）。节点拓扑见 `docs/cases/CrediOS-Sales-Workspace.md` §2.6。
+
+**A1 截图特殊处理**：sitemap §13 说 `/sales-workspace/applications/new` 是 server 生成 UUID 后重定向，**不能直接 goto**。MVP 用 seed 提前写好固定 ID 的草稿到 localStorage，直接 `goto('/sales-workspace/applications/<fixed-id>')` 即可。
 
 ---
 
@@ -57,29 +64,43 @@
 
 **文件**：`examples/crediOS/capture.mjs`
 
+**前置：CrediOS dev server 已运行在 `http://localhost:3000`**（用户自行保证；脚本启动时先 `GET /` 探活，失败明示报错）。
+
 **功能流程**：
 1. 从 CrediOS repo 读 git HEAD commit（要求 worktree clean）
 2. 启动 Playwright（Chromium）
-3. 对每个节点：
-   - 新建独立 `BrowserContext`（隔离 storage）
-   - `addInitScript` 注入对应 fixture 到 `localStorage`
+3. **认证一次性建立**（CrediOS dev mode 简化登录）：
+   - 起一个 base `BrowserContext`
+   - 访问 `/login`
+   - 填邮箱 `flowshot@webnak.com`（domain `@webnak.com` 是本地 dev 白名单）
+   - 点 "Send" 按钮 → **OTP 自动反显**到验证码输入框（dev mode 行为）
+   - 等待 OTP 输入框出现非空值（`page.waitForFunction(() => document.querySelector('input[inputMode="numeric"]').value.length === 6)`）
+   - 点 "Verify / 登陆" → 重定向到 `/dashboard` → workspace
+   - `context.storageState()` 导出 cookie + localStorage → 复用给所有节点
+4. 对每个节点：
+   - 新建独立 `BrowserContext({ storageState })`（带 auth）
+   - `addInitScript` 追加注入对应 fixture 到 `localStorage`（草稿数据）
    - 注入 CSS 禁用所有动画/过渡（产品方案 §3.6 item 6）
    - `goto(route)`，等待 `document.fonts.ready` + `networkidle`
    - 等待 500ms 兜底（CrediOS 没有 `data-flowshot-ready` 信号，MVP 不改）
    - `screenshot({ clip: { width: 1280, height: 800 } })` → PNG buffer
-4. sharp 批转 webp：
+5. sharp 批转 webp：
    - 高清 q=85 → `cache/shots/full/<id>.webp`
    - 缩略 400px 宽 → `cache/shots/thumbs/<id>.webp`
-5. 写 `cache/manifest.json`（节点元数据 + git commit + capture timestamp）
+6. 写 `cache/manifest.json`（节点元数据 + git commit + capture timestamp）
 
 **硬编码内容**（MVP 不抽象）：
 - `BASE_URL = 'http://localhost:3000'`
 - `CREDIOS_REPO = '/Users/zhuaijun/Work-space/CrediOS'`
-- 12 份 fixture（参考 CrediOS 案例 §3.5 + 读 `CrediOS/src/lib/draft-local-store.ts` 真实 schema）
-- 14 个节点的 route 表 + seed 名映射
+- `LOGIN_EMAIL = 'flowshot@webnak.com'`（dev mode：OTP 自动反显到输入框，无需读邮箱）
+- 12 份 fixture — 参考 sitemap §15 列出的源文件：
+  - `CrediOS/src/lib/forms/card-manifest.ts`（卡片定义）
+  - `CrediOS/src/lib/forms/application-sections.ts`（section 结构）
+  - `CrediOS/src/app/sales-workspace/applications/[id]/_components/application-client.tsx`（主控制器，含 stage 流转）
+- 14 个节点的 route 表（已对齐 sitemap §2.2）+ seed 名映射
 
 **前置假设（用户责任）**：
-- 自己在另一个 terminal 跑 `cd ~/Work-space/CrediOS && pnpm dev`
+- CrediOS dev server 已运行（`http://localhost:3000` 可访问）
 - CrediOS worktree clean（`git status --porcelain` 为空）
 
 ### Phase C — Renderer（Figma 设计落地）（3h）
@@ -150,6 +171,7 @@
 | 4 | **泳道色块视觉细节** | 我先做、commit 截图给用户看，迭代 1–2 轮 |
 | 5 | **deliverable 文件命名** | `dist/CrediOS-UIFlow-NTC+ETC-<shortSHA>.html`（按 CrediOS 案例 §8.6） |
 | 6 | **Playwright 浏览器二进制下载时长** | 首次 `npm install` 后跑一次 `npx playwright install chromium`；提醒用户 |
+| 7 | **登录认证** | ✅ 已解决：dev mode 接受 `@webnak.com` 邮箱，点 "Send" 后 OTP 自动反显到输入框，等其填充后点 "Verify" 即可。脚本一次登录、storageState 复用给 14 个节点 |
 
 ---
 
@@ -176,12 +198,9 @@
 ## 7. 用户日常使用流程（MVP 成形后）
 
 ```bash
-# Terminal 1: 启动 CrediOS dev server
-cd ~/Work-space/CrediOS
-git status                       # 确认 clean
-pnpm dev                         # 跑在 :3000
+# 前置：CrediOS dev server 已跑在 :3000（git status 应为 clean）
 
-# Terminal 2: 跑 Flowshot 流程
+# 跑 Flowshot 流程
 cd ~/Work-space/Flowshot
 node examples/crediOS/capture.mjs   # 采集 14 张截图 (~2min)
 node examples/crediOS/build.mjs     # 构建单 HTML (~10s)
