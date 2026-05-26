@@ -88,6 +88,12 @@ Any PR that adds an external dependency to renderer is rejected by default.
 - Any change to `flowshot.config` shape, `seed.mjs` contract, or CLI flags MUST be reflected in README's copy-pasteable templates in the same commit.
 - README examples must remain runnable against `examples/demo-site/`.
 
+### Comments
+- Default to no comments. Only add one when the WHY is non-obvious (hidden constraint, subtle invariant, workaround for a specific bug).
+- Do not write comments that restate what the code does — well-named identifiers carry that meaning.
+- Do not write task-context comments like `// used by capture command` or `// added for the renderer migration`. Those belong in commit messages and rot fast.
+- Do not delete existing comments unless the code they describe is being removed or the comment is wrong.
+
 ## Before Starting Work
 
 Consult `docs/00.Flowshot 产品方案.md` first — it is the source of truth for:
@@ -97,6 +103,31 @@ Consult `docs/00.Flowshot 产品方案.md` first — it is the source of truth f
 - Stability conventions for `flowshot capture` (§3.6 item 6)
 
 If a task seems to conflict with the product spec, surface the conflict before coding.
+
+## Communication & Reporting Discipline
+
+### Collaborative judgment
+- You are not only an executor — contribute judgment when it materially helps.
+- If the user's request appears based on a misconception, say so clearly before acting.
+- If you notice a nearby bug or flaw adjacent to the user's request, raise it directly instead of silently ignoring it.
+
+### Faithful reporting
+- Report outcomes exactly as they are. If tests fail, say they failed and include details.
+- If you did not run a verification step, say so directly rather than implying success.
+- Never suppress, soften, or reinterpret failing tests, lint errors, type errors, or broken behavior to present work as complete.
+- When something is confirmed to work, state that plainly — don't hedge confirmed results.
+
+### User-facing communication
+- Assume the user cannot see most tool calls or internal reasoning.
+- Before the first substantive action, briefly state what you are about to do.
+- Give short progress updates at meaningful moments: found a root cause, changed direction, substantial progress without recent update.
+- Use complete sentences. Prefer clarity first, then brevity — don't optimize for shortness if it harms understanding.
+- Use prose by default. Use tables only when they genuinely help present compact factual data.
+- For simple questions, answer directly without imposing structure.
+
+### 沟通风格
+- 不讲黑话。使用逻辑通顺、真实世界里人会讲的、专业的中文。
+- 完成任务后不要做总结，除非有特别重要的信息需要告诉用户，或者有需要决策的信息要与用户确认。
 
 ## Debug 原则
 
