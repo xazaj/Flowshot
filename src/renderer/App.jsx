@@ -13,7 +13,13 @@ export default function App({ manifest }) {
   return (
     <div className="app-shell" data-ready={ready ? "true" : "false"}>
       <header className="top-nav">
-        <div className="top-nav__wordmark">CrediOS UI Flow</div>
+        <div className="top-nav__brand">
+          <div className="top-nav__eyebrow">User Flow Map</div>
+          <div className="top-nav__wordmark">{manifest.project?.name || "CrediOS UI Flow"}</div>
+          {manifest.project?.scope && (
+            <div className="top-nav__scope">{manifest.project.scope}</div>
+          )}
+        </div>
         <VersionBadge manifest={manifest} />
       </header>
       <main className="flow-wrap">

@@ -21,6 +21,7 @@ export default function Swimlanes({ nodes }) {
   const { x, y, zoom } = useViewport()
   const ntc = useMemo(() => computeLaneBox(nodes, "ntc"), [nodes])
   const etc = useMemo(() => computeLaneBox(nodes, "etc"), [nodes])
+  const subflow = useMemo(() => computeLaneBox(nodes, "subflow"), [nodes])
 
   const transform = `translate(${x}px, ${y}px) scale(${zoom})`
 
@@ -41,6 +42,14 @@ export default function Swimlanes({ nodes }) {
             style={{ left: etc.x, top: etc.y, width: etc.width, height: etc.height }}
           >
             <div className="swimlane__label">ETC · Existing-to-Credit</div>
+          </div>
+        )}
+        {subflow && (
+          <div
+            className="swimlane swimlane--subflow"
+            style={{ left: subflow.x, top: subflow.y, width: subflow.width, height: subflow.height }}
+          >
+            <div className="swimlane__label">Sub-Flows · From Workbench</div>
           </div>
         )}
       </div>
