@@ -18,9 +18,10 @@ The current code in this repo is the Spike S5 demo from that project (Vite + Rea
 
 ## Documentation
 
-- `docs/00.Sales Workspace UI Flow 方案.md` — Original case-study spec (CrediOS-specific, will be generalized)
+- `docs/00.Flowshot 产品方案.md` — Product positioning, CLI design, V1 scope
 - `docs/01.Spike S5 报告.md` — Tech-stack validation report
-- `docs/figma-design.md` — Target design system for generated flow boards
+- `docs/cases/CrediOS-Sales-Workspace.md` — Real-world case study (the deliverable Flowshot was extracted from)
+- `docs/figma-design.md` — Visual design reference (reserved for future landing page)
 
 ## Quick start (current spike state)
 
@@ -32,7 +33,7 @@ node verify.mjs     # Playwright smoke test on file:// protocol
 
 ## Roadmap
 
-See `docs/00.Sales Workspace UI Flow 方案.md` §9. Next:
-- Generalize seed mechanism (currently CrediOS-localStorage-specific)
-- `flowshot.config.ts` schema design
-- Multi-project demo
+See `docs/00.Flowshot 产品方案.md` §6 (V1 scope) and §8 (next steps). Immediate next:
+- Run `writing-plans` to produce a detailed implementation plan
+- Refactor repo from Spike S5 layout to npm package layout (`src/cli.ts` entry)
+- Implement `flowshot capture` + `flowshot build` against `examples/demo-site/`
