@@ -1,5 +1,11 @@
 # Flowshot
 
+[![Repo](https://img.shields.io/badge/GitHub-xazaj%2FFlowshot-181717?logo=github)](https://github.com/xazaj/Flowshot)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Vite](https://img.shields.io/badge/Vite-5.4-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
+[![React](https://img.shields.io/badge/React-18.3-61DAFB?logo=react&logoColor=white)](https://react.dev/)
+[![Status](https://img.shields.io/badge/status-prototype-orange)]()
+
 > Snapshot your user flows. Ship them as a single HTML.
 
 Flowshot is a tool that drives a running web app through a list of pre-defined states, captures a screenshot of each, and assembles them into a pan/zoom flow diagram — delivered as a single portable HTML file with version metadata tied to the source commit.
