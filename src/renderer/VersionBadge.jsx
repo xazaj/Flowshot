@@ -46,14 +46,21 @@ export default function VersionBadge({ manifest }) {
         className="version-badge__pill"
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
+        aria-haspopup="dialog"
+        aria-controls="version-popover"
       >
         <span className="version-badge__mono">uiflow-{manifest.uiFlowVersion}</span>
         · CrediOS@{commit}
       </button>
       {open && (
-        <div className="version-badge__popover" role="dialog">
+        <div
+          className="version-badge__popover"
+          role="dialog"
+          id="version-popover"
+          aria-labelledby="version-popover-label"
+        >
           <div className="version-badge__row">
-            <div className="version-badge__label">Project</div>
+            <div className="version-badge__label" id="version-popover-label">Project</div>
             <div className="version-badge__value">{manifest.project?.name}</div>
           </div>
           <div className="version-badge__row">

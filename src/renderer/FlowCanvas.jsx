@@ -35,21 +35,21 @@ function buildEdges(manifest) {
     target: e.to,
     label: e.label,
     type: "smoothstep",
-    labelBgPadding: [8, 4],
+    labelBgPadding: [12, 6],
     labelBgBorderRadius: 50,
     labelBgStyle: { fill: "#ffffff" },
-    labelStyle: { fontFamily: "var(--font-sans)", fontWeight: 500 },
     style: { stroke: "var(--color-ink)", strokeWidth: 1.5 },
   }))
 }
 
-export default function FlowCanvas({ manifest, onOpenNode }) {
+export default function FlowCanvas({ manifest, onOpenNode, onReady }) {
   const nodes = useMemo(() => buildNodes(manifest, onOpenNode), [manifest, onOpenNode])
   const edges = useMemo(() => buildEdges(manifest), [manifest])
 
   const onInit = useCallback((rf) => {
     rf.fitView({ padding: 0.15, duration: 0 })
-  }, [])
+    if (onReady) onReady()
+  }, [onReady])
 
   return (
     <ReactFlowProvider>

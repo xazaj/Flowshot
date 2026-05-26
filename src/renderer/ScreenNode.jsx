@@ -1,10 +1,27 @@
 import { Handle, Position } from "@xyflow/react"
 
 export default function ScreenNode({ data }) {
+  const onKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault()
+      data.onOpen()
+    }
+  }
   return (
-    <div className="screen-node" onClick={data.onOpen}>
+    <div
+      className="screen-node"
+      role="button"
+      tabIndex={0}
+      onClick={data.onOpen}
+      onKeyDown={onKeyDown}
+      aria-label={`Open ${data.title}`}
+    >
       <Handle type="target" position={Position.Left} />
-      <img className="screen-node__thumb" src={data.thumb} alt="" draggable={false} />
+      {data.thumb ? (
+        <img className="screen-node__thumb" src={data.thumb} alt="" draggable={false} />
+      ) : (
+        <div className="screen-node__thumb screen-node__thumb--placeholder" aria-hidden="true" />
+      )}
       <div className="screen-node__body">
         <div className="screen-node__title">{data.title}</div>
         <div className="screen-node__stage">{data.stage}</div>

@@ -2,12 +2,23 @@ import { useEffect, useRef } from "react"
 
 export default function Lightbox({ node, onClose }) {
   const ref = useRef(null)
+  const closeBtnRef = useRef(null)
+  const previousFocus = useRef(null)
 
   useEffect(() => {
     const dlg = ref.current
     if (!dlg) return
-    if (node && !dlg.open) dlg.showModal()
-    if (!node && dlg.open) dlg.close()
+    if (node && !dlg.open) {
+      previousFocus.current = document.activeElement
+      dlg.showModal()
+      closeBtnRef.current?.focus()
+    }
+    if (!node && dlg.open) {
+      dlg.close()
+      if (previousFocus.current && typeof previousFocus.current.focus === "function") {
+        previousFocus.current.focus()
+      }
+    }
   }, [node])
 
   useEffect(() => {
@@ -30,6 +41,7 @@ export default function Lightbox({ node, onClose }) {
       {node && (
         <div className="lightbox__inner">
           <button
+            ref={closeBtnRef}
             type="button"
             className="lightbox__close"
             onClick={onClose}
@@ -37,7 +49,11 @@ export default function Lightbox({ node, onClose }) {
           >
             ×
           </button>
-          <img className="lightbox__image" src={node.full} alt={node.title} />
+          {node.full ? (
+            <img className="lightbox__image" src={node.full} alt={node.title} />
+          ) : (
+            <div className="lightbox__image lightbox__image--placeholder" aria-hidden="true" />
+          )}
           <div className="lightbox__caption">
             <div className="lightbox__caption-title">{node.title}</div>
             <div className="lightbox__caption-stage">{node.stage}</div>

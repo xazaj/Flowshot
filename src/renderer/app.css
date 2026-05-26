@@ -138,7 +138,6 @@ html, body, #root {
 .swimlane {
   position: absolute;
   border-radius: var(--radius-lg);
-  padding: var(--space-xxl);
 }
 
 .swimlane--ntc { background: var(--color-block-cream); }
@@ -164,13 +163,21 @@ html, body, #root {
   border-radius: var(--radius-md);
   overflow: hidden;
   cursor: pointer;
-  transition: border-color 120ms ease;
+  transition: outline 120ms ease;
 }
 
 .screen-node:hover {
-  border-color: var(--color-ink);
-  border-width: 2px;
-  margin: -1px;
+  outline: 1px solid var(--color-ink);
+  outline-offset: -1px;
+}
+
+.screen-node:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+.screen-node__thumb--placeholder {
+  background: var(--color-surface-soft);
 }
 
 .screen-node__thumb {
@@ -205,9 +212,9 @@ html, body, #root {
 
 .screen-node__stage {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
   color: var(--color-ink-60);
   white-space: nowrap;
@@ -219,7 +226,7 @@ html, body, #root {
 .react-flow__edge-text {
   font-family: var(--font-sans);
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 480;
   fill: var(--color-ink);
 }
 
@@ -328,4 +335,23 @@ html, body, #root {
   letter-spacing: 0.6px;
   text-transform: uppercase;
   opacity: 0.7;
+}
+
+.lightbox__image--placeholder {
+  width: 80vw;
+  height: 60vh;
+  background: var(--color-surface-soft);
+}
+
+.manifest-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 480;
+  color: var(--color-ink);
+  background: var(--color-canvas);
 }
